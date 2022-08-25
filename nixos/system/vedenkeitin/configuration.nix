@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/system/virtualisation
+      ../../modules/system/base
     ];
 	
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -58,13 +60,23 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+  
+  sys.virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.midka = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
+
+  # Manage the user accounts using home manager
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.midka = import ./users/midka/home.nix;
+
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

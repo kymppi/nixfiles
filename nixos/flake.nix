@@ -5,9 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 	
-  outputs = { self, nixpkgs, home-manager, nixos-hardware }: 
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, sops-nix }: 
     let 
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -24,6 +26,7 @@
 
           modules = [
             home-manager.nixosModules.home-manager
+	    sops-nix.nixosModules.sops
             ./system/vedenkeitin/configuration.nix
           ];
         };
