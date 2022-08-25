@@ -6,7 +6,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager";
   };
-
+	
   outputs = { self, nixpkgs, home-manager, nixos-hardware }: 
     let 
       system = "x86_64-linux";
@@ -18,7 +18,15 @@
       };
     in
     {
-      nixosConfigurations = {
-      };
-    };
+     nixosConfigurations = {
+	nixos-midka-vm = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./system/nixos-midka-vm/configuration.nix
+          ];
+        };
+     };
+  };
 }
