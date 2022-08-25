@@ -1,5 +1,5 @@
 {
-  description = "Midka's Remote Development Server";
+  description = "Midka's NixFiles for multiple environments (dev server)";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -19,12 +19,12 @@
     in
     {
      nixosConfigurations = {
-	nixos-midka-vm = nixpkgs.lib.nixosSystem {
+	vedenkeitin = nixpkgs.lib.nixosSystem {
           inherit system;
 
           modules = [
             home-manager.nixosModules.home-manager
-            ./system/nixos-midka-vm/configuration.nix
+            ./system/vedenkeitin/configuration.nix
           ];
         };
      };
