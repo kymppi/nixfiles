@@ -2,6 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
+    vim
+    neofetch
     neovim
     wget
     curl
