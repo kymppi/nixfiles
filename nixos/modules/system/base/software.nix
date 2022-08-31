@@ -17,6 +17,7 @@
     zip
     exa
     bat
+    nodejs
   ];
 
   environment.shells = [ pkgs.zsh pkgs.bash ];

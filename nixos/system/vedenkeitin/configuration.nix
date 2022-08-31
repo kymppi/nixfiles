@@ -81,8 +81,6 @@
   home-manager.useUserPackages = true;
   home-manager.users.midka = import ./users/midka/home.nix;
 
-
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [

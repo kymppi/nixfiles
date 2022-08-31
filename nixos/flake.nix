@@ -7,9 +7,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    vscode-server.url = "github:msteen/nixos-vscode-server";
   };
 	
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, sops-nix }: 
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, sops-nix, vscode-server }: 
     let 
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -27,6 +28,10 @@
           modules = [
             home-manager.nixosModules.home-manager
 	    sops-nix.nixosModules.sops
+	    vscode-server.nixosModule
+	    ({ config, pkgs, ... }: {
+		services.vscode-server.enable = true;
+	    })
             ./system/vedenkeitin/configuration.nix
           ];
         };
