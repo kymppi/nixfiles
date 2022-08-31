@@ -6,13 +6,14 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/system/virtualisation
       ../../modules/system/base
     ];
-	
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -25,7 +26,7 @@
   networking.hostName = "vedenkeitin";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Helsinki";
@@ -39,7 +40,7 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "fi";
-  #   useXkbConfig = true; # use xkbOptions in tty.
+    #   useXkbConfig = true; # use xkbOptions in tty.
   };
 
   # Enable the X11 windowing system.
@@ -60,7 +61,7 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-  
+
   sys.virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -72,7 +73,7 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDazpMBYZMjeTNpe5Fivc38OL/OnYNUExHO+SBH5xxiYH/AxuWVFanEGwgA6w9owUJp6wkyCv3uD14MSysN8eL4ZdTIcZIhuIySYB4zn6CJgH66X4tqFnuA2KkdhiUQ7SxXHJNLVaIV6KM9kEjI73H7t17meE2qvDA66L8wReyz0pqfAPmi8lpX6THNQM17HT1g82wWG2IFC0xM40AOlhQ3oWp/eMXlJMKsnX7WpDVuJBCcYSvcfM6CAeWhd/Mv5VaGrOfOqmPeXCvIo9pDm7pBw6yim8qbhMokJuY3AZXgb/4sxmIQiVXKxNRqCkuX8scYb0x+87uXVS/fCSFGtw4oEBq/g8pQYu58ZK9S+SKE2K5CWWxpkDPTMHoZ56jjm9t/uJlgaEBl8C58E2PQleYcMaUzegD2vM1VOWBjY27g+9XB7TAeR5THuRKlRHToVwbWEhZ3KawPvJ8tBlJxJ03yM2Rsx38n4Oq1E0SLBNmk5wRULFSORolD5CfFcq5F+V8="
     ];
     extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
 
@@ -85,6 +86,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     sudo
+    direnv
     home-manager
   ];
 
@@ -100,13 +102,13 @@
 
   # Enable the OpenSSH daemon.
   services.openssh = {
-	enable = true;
-	permitRootLogin = "no";
-	passwordAuthentication = false;
-	listenAddresses = [{addr = "0.0.0.0"; port = 69;}];
+    enable = true;
+    permitRootLogin = "no";
+    passwordAuthentication = false;
+    listenAddresses = [{ addr = "0.0.0.0"; port = 69; }];
   };
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 
+  networking.firewall.allowedTCPPorts = [
     69
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];

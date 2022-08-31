@@ -1,12 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  imports = [];
+  imports = [ ];
 
   home.username = "midka";
   home.homeDirectory = "/home/midka";
 
   home.packages = with pkgs; [
+    nixpkgs-fmt
     starship
   ];
 
