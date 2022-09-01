@@ -18,6 +18,7 @@
     exa
     bat
     nodejs
+    yarn
   ];
 
   # Pinentry

@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    ./zsh.nix
+  ];
 
   programs.git = {
     enable = true;
