@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    "../../../../modules/users/midka" # dotfiles
+  ];
 
   home.username = "midka";
   home.homeDirectory = "/home/midka";
@@ -10,13 +12,6 @@
     nixpkgs-fmt
     starship
   ];
-
-  programs.git = {
-    userName = "Midka";
-    userEmail = "me@midka.dev";
-  };
-
-  # vscode-server
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
