@@ -20,5 +20,8 @@
     nodejs
   ];
 
+  # Pinentry
+  programs.gnupg.agent.enable = true;
+
   environment.shells = [ pkgs.zsh pkgs.bash ];
 }
