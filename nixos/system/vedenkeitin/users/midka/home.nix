@@ -2,7 +2,7 @@
 
 {
   imports = [
-    "../../../../modules/users/midka" # dotfiles
+    ../../../../modules/users/midka # dotfiles
   ];
 
   home.username = "midka";
