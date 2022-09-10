@@ -115,6 +115,14 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  
+  # java
+  # Programs and configurating them
+  programs.java = {
+    enable = true;
+    additionalRuntimes = { inherit (pkgs) jdk17; };
+    package = pkgs.jdk17;
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
