@@ -120,8 +120,8 @@
   # Programs and configurating them
   programs.java = {
     enable = true;
-    additionalRuntimes = { inherit (pkgs) jdk17; };
-    package = pkgs.jdk17;
+    additionalRuntimes = { inherit (pkgs) jdk8; };
+    package = pkgs.jdk8;
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
