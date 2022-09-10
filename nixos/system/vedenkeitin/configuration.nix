@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ../../modules/system/virtualisation
       ../../modules/system/base
+      ../../modules/system/runtimes
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
