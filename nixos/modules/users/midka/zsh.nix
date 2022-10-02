@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  programs.zsh = {
-    initExtra = [ "export GPG_TTY=$(tty)" ];
-  };
+  programs.zsh.initExtra = [
+    "eval '$(direnv hook zsh)'"
+  ];
 }

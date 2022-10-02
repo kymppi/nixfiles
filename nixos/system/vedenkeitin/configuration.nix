@@ -1,13 +1,8 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/system/virtualisation
       ../../modules/system/base
@@ -15,53 +10,19 @@
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  boot.loader.grub.device = "/dev/sda";
 
   networking.hostName = "vedenkeitin";
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/Helsinki";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "fi";
-    #   useXkbConfig = true; # use xkbOptions in tty.
   };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = {
-  #   "eurosign:e";
-  #   "caps:escape" # map caps to escape.
-  # };
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   sys.virtualisation.docker.enable = true;
 
@@ -73,7 +34,7 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCu54FYP9cmUeaerZwBz1m+2TUw1Lo+DiR4Y9xYRNcuNJPp7fsgEBiahnAUjHApJ1LKoOtL/dHPPBfvVGUo90ViXoykLq20YgMkNSxlWxK1YeM1WCpH2/bNvl3f3RA/8yDsaQcftNozazBVHXLE9NT+yBEcOUIURnDI9yoBKQOn8LjkAkzuxqkn1oZ2+ghLP52gcUQDfdtvYcvIse42R259LEqeHZbOrStGMsB6tQSNcoNrUyzkmXLVwa56y6+pKSzFFcfeflEzPpA7SQLS/texOvmaBAeYhKKRQ+s/eHfwJg7KLY0c+Qes1UZevSXtB89WvVex86RepKu5kggQ/hrceRI5q3D9U7xeSQiW6hBUkk99kfuy3pFi1A+bdSacjZssosSAnP3gsHCb0Ec0/72ov+jfyLGoj4tROlhvNWhweIjFgzF2Sd5zlX1byv4GOBnqH2piTZStfo4idUVzD50yOeMIaC8ThT3i2k4TX8s1+jvj/pU4Ct6/kYYtuUjTOk0=" # probably cooler?
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8qVs9WO2mqxaaD7RDgaA8bxXVbQTsuz4k2TOaj2WLcMg+XNfuLqqJ/BkCivqmm7t2qTEx/WEmtAd8x3mAAgBdi/SkBhK6Y7IRQq2+ZSI3HTsB5ec1FmUof+Z3JXPdKCZSIrDxmSS2MXU6STGOH23AW7dnzjIsUC/bovaS8Xekh81gaGShRF9LCWdI/f2bQ8R+53+J4RO3o8I1J5Lal+ZV/RBcO1CNj67PR1e+IS5a+l2ZDjORjOjezGtuKjbfHUEsRZCIm0CWIL574yHAVkgp+jcBWCDurzetQUNs88Jr8mzT2eqzYzw+ueIddFtfzFtpQCqTQ34Y1rxX++fQ6LtU/IN2iuE/5g8oqzt82tM/o54tZRfIRrXKrdSsOhbZ6f9mW9Q3fohZrHtW/e9gEVutYTC993Dn5VvUCmUuTx9btQU7quxr6HeENKuD5+QwpR8yAc9aMZhWQLdUoXpRQ7+ZG41v5zR/Yc1377BFJhMjtphy+qTSBK+ZP3JteEteGMc=" # school laptop
     ];
-    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
@@ -91,14 +52,6 @@
     home-manager
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -111,16 +64,17 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     69
+    25565
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  
+
   # java
   # Programs and configurating them
   programs.java = {
     enable = true;
-    additionalRuntimes = { inherit (pkgs) jdk8; };
+    additionalRuntimes = { inherit (pkgs) jdk8 jdk17; };
     package = pkgs.jdk8;
   };
 
