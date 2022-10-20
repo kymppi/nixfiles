@@ -4,10 +4,10 @@
     enable = true;
     userName = "Midka";
     userEmail = "me@midka.dev";
-    # signing = {
-    #   signByDefault = true;
-    #   key = "8C263C757330B5BA";
-    # };
+    signing = {
+      signByDefault = true;
+      key = "8C263C757330B5BA";
+    };
     extraConfig = {
       core = {
         editor = "nvim";
