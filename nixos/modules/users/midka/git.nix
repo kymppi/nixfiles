@@ -12,6 +12,7 @@
       core = {
         editor = "nvim";
       };
+      url."ssh://git@".insteadOf = "git://";
       color = {
         ui = true;
       };
