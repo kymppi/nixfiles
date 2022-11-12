@@ -19,7 +19,6 @@
     bat
     nodejs
     yarn
-    tailscale
   ];
 
   # Pinentry

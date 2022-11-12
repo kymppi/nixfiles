@@ -78,6 +78,9 @@
     package = pkgs.jdk8;
   };
 
+  # tailscale
+  services.tailscale.enable = true;
+
   # BACKUPS
   services.restic =
     { };
