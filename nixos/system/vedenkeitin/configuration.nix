@@ -66,6 +66,10 @@
     69
     25565
   ];
+  # always allow traffic from your Tailscale network
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  # allow the Tailscale UDP port through the firewall
+  networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
