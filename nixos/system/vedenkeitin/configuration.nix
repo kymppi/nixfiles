@@ -86,8 +86,32 @@
   services.tailscale.enable = true;
 
   # BACKUPS
-  services.restic =
-    { };
+  services.restic = {
+    backups.system = {
+      initialize = true;
+      user = "root";
+      passwordFile = "/root/.backups_secret";
+      paths = [
+        "/etc"
+        "/home"
+        "/root"
+        "/var"
+        "/usr/local/bin"
+        "/usr/local/sbin"
+        "/srv"
+        "/otp"
+      ];
+      repository = "sftp:backups:./vedenkeitin";
+      timerConfig = {
+        OnUnitActiveSec = "12h";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 5"
+        "--keep-yearly 10"
+      ];
+    };
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
