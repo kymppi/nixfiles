@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  aocleaderboard:
+    container_name: aocleaderboard
+    image: aocleaderboard
+    ports:
+      - 8000:8000
+    volumes:
+      - ./settings.toml:/app/settings.toml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aocleaderboard.rule=Host(`advent.procoderhangout.org`)"
+      - "traefik.http.routers.aocleaderboard.entrypoints=websecure"
+      - "traefik.http.routers.aocleaderboard.tls.certresolver=httpchallenge"
+      - "traefik.http.services.aocleaderboard.loadbalancer.server.port=8000"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
