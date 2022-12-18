@@ -2,7 +2,7 @@
 
 {
   xdg.configFile.nvim = {
-    source = ../../../non-nix-dotfiles/.config/nvim;
+    source = ../../../nvim;
     recursive = true;
   };
 }
