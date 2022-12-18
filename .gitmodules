@@ -1,3 +1,0 @@
-[submodule "nixos/non-nix-dotfiles"]
-	path = nixos/non-nix-dotfiles
-	url = git@github.com:kymppi/dotfiles
