@@ -29,7 +29,7 @@
             vscode-server.nixosModule
             ({ config, pkgs, ... }: {
               services.vscode-server.enable = true;
-              nixpkgs.overlays = [ rust-overlay.overlay ];
+              nixpkgs.overlays = [ rust-overlay.overlays.default ];
               environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
             })
             ./system/vedenkeitin/configuration.nix

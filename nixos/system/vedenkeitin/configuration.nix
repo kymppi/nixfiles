@@ -14,6 +14,21 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
 
+  fileSystems."/" =
+    {
+      device = "/dev/hmph/root"; # "/dev/disk/by-uuid/58ae5bf1-a533-42aa-8204-ea65101639c"
+      fsType = "ext4";
+    };
+
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-uuid/4054-C456";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [{ device = "/dev/hmph/swap"; }];
+
   networking.hostName = "vedenkeitin";
   networking.networkmanager.enable = true;
 
@@ -68,6 +83,7 @@
   ];
   # always allow traffic from your Tailscale network
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  networking.firewall.checkReversePath = "loose";
   # allow the Tailscale UDP port through the firewall
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   # networking.firewall.allowedUDPPorts = [ ... ];
