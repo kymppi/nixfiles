@@ -5,6 +5,7 @@
     vim
     neofetch
     neovim
+    clang
     wget
     curl
     git
@@ -19,6 +20,7 @@
     bat
     nodejs
     yarn
+    gh
   ];
 
   # Pinentry
