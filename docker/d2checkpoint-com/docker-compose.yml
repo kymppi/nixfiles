@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  aocleaderboard:
+    container_name: d2checkpoint-web-beta
+    image: d2checkpoint-web:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aocleaderboard.rule=Host(`beta.d2checkpoint.com`)"
+      - "traefik.http.routers.aocleaderboard.entrypoints=websecure"
+      - "traefik.http.routers.aocleaderboard.tls.certresolver=httpchallenge"
+      - "traefik.http.services.aocleaderboard.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
