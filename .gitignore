@@ -1,2 +1,3 @@
 /docker/aocleaderboard/settings.toml
 /docker/traefik/letsencrypt
+.env
