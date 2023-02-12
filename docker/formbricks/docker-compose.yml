@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - formbricks
+
+  formbricks-hq:
+    image: formbricks:latest
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.formbricks.rule=Host(`formbricks.midka.dev`)"
+      - "traefik.http.routers.formbricks.entrypoints=websecure"
+      - "traefik.http.routers.formbricks.tls.certresolver=httpchallenge"
+      - "traefik.http.services.formbricks.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+      - formbricks
+
+volumes:
+  postgres:
+    driver: local
+
+networks:
+  formbricks:
+  traefik:
+    external: true
