@@ -73,8 +73,8 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
+    settings.PermitRootLogin = "no";
+    settings.PasswordAuthentication = false;
     listenAddresses = [{ addr = "0.0.0.0"; port = 69; }];
   };
   # Open ports in the firewall.
