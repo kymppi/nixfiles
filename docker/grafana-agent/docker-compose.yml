@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  agent:
+    container_name: grafana-agent
+    image: 'grafana/agent:v0.32.0'
+    volumes:
+      - '/tmp/agent:/etc/agent/data'
+      - './config.yaml:/etc/agent/agent.yaml'
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    devices:
+      - /dev/kmsg

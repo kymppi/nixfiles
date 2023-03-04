@@ -1,3 +1,4 @@
 /docker/aocleaderboard/settings.toml
 /docker/traefik/letsencrypt
 **/*.env
+/docker/grafana-agent/config.yaml
