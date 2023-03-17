@@ -6,3 +6,5 @@
 /docker/grafana/prometheus/prometheus.yml
 /docker/grafana/prometheus/web.yml
 /docker/grafana/provisioning/datasources/datasource.yml
+/docker/grafana/loki-config.yaml
+/docker/grafana/docker-compose.yml
