@@ -4,3 +4,4 @@
 /docker/grafana-agent/config.yaml
 /docker/grafana/grafana.ini
 /docker/grafana/prometheus/prometheus.yml
+/docker/grafana/provisioning/datasources/datasource.yml
