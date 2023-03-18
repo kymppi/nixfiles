@@ -1,0 +1,100 @@
+version: "3.8"
+services:
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./config/provisioning:/etc/grafana/provisioning
+      - ./config/grafana.ini:/etc/grafana/grafana.ini
+    env_file:
+      - grafana.env
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_DOMAIN}`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls.certresolver=httpchallenge"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+      - grafana
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  mimir:
+    image: grafana/mimir:latest
+    volumes:
+      - ./config/mimir-config.yaml:/etc/mimir.yaml
+      - mimir-storage:/data
+    command:
+      - '-config.file=/etc/mimir.yaml'
+      - '-common.storage.backend=s3'
+      - '-common.storage.s3.endpoint=${MIMIR_S3_ENDPOINT}'
+      - '-common.storage.s3.secret-access-key=${MIMIR_S3_SECRET_ACCESS_KEY}'
+      - '-common.storage.s3.access-key-id=${MIMIR_S3_ACCESS_KEY_ID}'
+      - '-common.storage.s3.bucket-name=${MIMIR_S3_BUCKET_NAME}'
+      - '-alertmanager-storage.s3.bucket-name=${MIMIR_S3_BUCKET_ALERTMANAGER}'
+      - '-ruler-storage.s3.bucket-name=${MIMIR_S3_BUCKET_RULER}'
+      - '-alertmanager.web.external-url=${MIMIR_ROOT_URL}/alertmanager'
+    restart: unless-stopped
+    networks:
+      - traefik
+      - grafana
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafanamimir.rule=Host(`${MIMIR_DOMAIN}`)"
+      - "traefik.http.routers.grafanamimir.entrypoints=websecure"
+      - "traefik.http.routers.grafanamimir.tls.certresolver=httpchallenge"
+      - "traefik.http.services.grafanamimir.loadbalancer.server.port=8080"
+      - "traefik.http.routers.grafanamimir.middlewares=mimir-header,mimir-auth"
+      - "traefik.http.middlewares.mimir-header.headers.customrequestheaders.X-Scope-OrgID=${ORG_ID}"
+      - "traefik.http.middlewares.mimir-auth.basicauth.users=${MIMIR_BASIC_AUTH}"
+  loki:
+    image: grafana/loki:latest
+    command:
+      - "-config.file=/etc/loki/config.yaml"
+      - "-config.expand-env=true"
+    volumes:
+      - ./config/loki-config.yaml:/etc/loki/config.yaml
+      - loki-storage:/data/compactor
+    env_file:
+      - loki.env
+    networks:
+      - traefik
+      - grafana
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.loki.rule=Host(`${LOKI_DOMAIN}`)"
+      - "traefik.http.routers.loki.entrypoints=websecure"
+      - "traefik.http.routers.loki.tls.certresolver=httpchallenge"
+      - "traefik.http.services.loki.loadbalancer.server.port=3100"
+      - "traefik.http.routers.loki.middlewares=loki-auth,loki-header"
+      - "traefik.http.middlewares.loki-auth.basicauth.users=${LOKI_BASIC_AUTH}"
+      - "traefik.http.middlewares.loki-header.headers.customrequestheaders.X-Scope-OrgID=${ORG_ID}"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  grafana-storage:
+  mimir-storage:
+  loki-storage:
+
+
+networks:
+  traefik:
+    external: true
+  grafana:

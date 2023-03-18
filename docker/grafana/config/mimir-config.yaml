@@ -1,0 +1,67 @@
+common:
+  # overridden in docker-compose.yml
+  storage:
+    backend: s3
+    s3:
+      endpoint: '${S3_ENDPOINT}'
+      secret_access_key: '${S3_SECRET_ACCESS_KEY}'
+      access_key_id: '${S3_ACCESS_KEY_ID}'
+      bucket_name: '${S3_BUCKET_NAME}'
+
+blocks_storage:
+  bucket_store:
+    sync_dir: /data/tsdb-sync
+  tsdb:
+    dir: /data/tsdb
+
+alertmanager_storage:
+  s3:
+    # overridden in docker-compose.yml
+    bucket_name: '${S3_BUCKET_ALERTMANAGER}'
+
+ruler_storage:
+  s3:
+    # overridden in docker-compose.yml
+    bucket_name: '${S3_BUCKET_RULER}'
+
+activity_tracker:
+  filepath: /data/metrics-activity.log
+
+alertmanager:
+  data_dir: /data/alerts
+  enable_api: true
+  # overridden in docker-compose.yml
+  external_url: '${ROOT_URL}/alertmanager'
+
+compactor:
+  data_dir: /data/compactor
+
+ingester:
+  ring:
+    final_sleep: 0s
+    num_tokens: 512
+    unregister_on_shutdown: false
+    replication_factor: 1
+
+ingester_client:
+  grpc_client_config:
+    max_recv_msg_size: 104857600
+    max_send_msg_size: 104857600
+
+limits:
+  max_label_names_per_series: 60
+
+memberlist:
+  abort_if_cluster_join_fails: false
+  compression_enabled: false
+  # join_members:
+  # - dns+mimir-gossip-ring.test.svc.cluster.local:7946
+
+ruler:
+  alertmanager_url: http://127.0.0.1:8080/alertmanager
+  enable_api: true
+  rule_path: /data/ruler
+
+server:
+  grpc_server_max_concurrent_streams: 1000
+  log_level: warn

@@ -1,0 +1,31 @@
+apiVersion: 1
+
+datasources:
+  - name: Mimir
+    type: prometheus
+    access: proxy
+    orgId: $ORG_ID
+    url: $MIMIR_URL
+    basicAuth: $MIMIR_AUTH_ENABLED
+    basicAuthUser: $MIMIR_USER
+    jsonData:
+      httpHeaderName1: 'X-Scope-OrgID'
+    secureJsonData:
+      httpHeaderValue1: $ORG_ID
+      basicAuthPassword: $MIMIR_PASSWORD
+    isDefault: true
+    editable: false
+  - name: Loki
+    type: loki
+    access: proxy
+    orgId: $ORG_ID
+    url: $LOKI_URL
+    basicAuth: $LOKI_AUTH_ENABLED
+    basicAuthUser: $LOKI_USER
+    isDefault: false
+    editable: false
+    jsonData:
+      httpHeaderName1: 'X-Scope-OrgID'
+    secureJsonData:
+      httpHeaderValue1: $ORG_ID
+      basicAuthPassword: $LOKI_PASSWORD
