@@ -21,6 +21,7 @@
     nodejs
     yarn
     gh
+    gcc
   ];
 
   # Pinentry

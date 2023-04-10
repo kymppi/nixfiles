@@ -7,6 +7,7 @@
       eval "$(direnv hook zsh)";
       eval "$(starship init zsh)";
       eval "$(export GPG_TTY=$(tty));"
+      export PATH=$PATH:/home/midka/go/bin
     '';
     shellAliases = {
       run = "nix run";
