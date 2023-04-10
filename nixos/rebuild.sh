@@ -1,1 +1,1 @@
-exec sudo nixos-rebuild switch --flake '.#'
+exec sudo nixos-rebuild switch --flake '.#' $1
