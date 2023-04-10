@@ -2,3 +2,4 @@
 /docker/traefik/letsencrypt
 **/*.env
 /docker/grafana-agent/config.yaml
+/docker/prometheus/prometheus/prometheus.yml

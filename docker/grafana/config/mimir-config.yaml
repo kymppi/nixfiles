@@ -64,4 +64,4 @@ ruler:
 
 server:
   grpc_server_max_concurrent_streams: 1000
-  log_level: warn
+  log_level: info

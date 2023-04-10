@@ -98,3 +98,4 @@ networks:
   traefik:
     external: true
   grafana:
+    external: true
