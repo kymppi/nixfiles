@@ -1,1 +1,1 @@
-exec sudo nix flake update
+exec sudo nix flake update $1
