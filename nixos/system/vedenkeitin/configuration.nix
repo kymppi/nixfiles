@@ -33,6 +33,8 @@
   networking.hostName = "vedenkeitin";
   networking.networkmanager.enable = true;
 
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   time.timeZone = "Europe/Helsinki";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -54,6 +56,8 @@
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
+
+  programs.zsh.enable = true;
 
   # Manage the user accounts using home manager
   home-manager.useGlobalPkgs = true;
