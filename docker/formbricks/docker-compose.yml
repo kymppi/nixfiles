@@ -2,6 +2,7 @@ version: "3.3"
 services:
   postgres:
     image: postgres:15-alpine
+    restart: unless-stopped
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:
@@ -11,6 +12,7 @@ services:
 
   formbricks-hq:
     image: formbricks:latest
+    restart: unless-stopped
     depends_on:
       - postgres
     env_file:

@@ -3,6 +3,7 @@ services:
   agent:
     container_name: grafana-agent
     image: 'grafana/agent:v0.32.0'
+    restart: unless-stopped
     volumes:
       - '/tmp/agent:/etc/agent/data'
       - './config.yaml:/etc/agent/agent.yaml'
