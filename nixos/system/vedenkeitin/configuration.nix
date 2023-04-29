@@ -124,7 +124,7 @@
       ];
       repository = "sftp:backups:./vedenkeitin";
       timerConfig = {
-        OnUnitActiveSec = "12h";
+        OnCalendar = "daily";
       };
       pruneOpts = [
         "--keep-daily 7"
