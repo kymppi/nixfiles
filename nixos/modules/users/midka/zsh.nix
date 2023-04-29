@@ -14,6 +14,7 @@
       dev = "nix develop";
       gs = "git status";
       gc = "git commit";
+      npx = "pnpm dlx";
     };
   };
 }
